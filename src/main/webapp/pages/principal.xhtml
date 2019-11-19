@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <meta charset="UTF-8"/>
+    <f:metadata>
+        <f:viewAction action="#{sessaoMB.controlarSessao}"/>
+        <f:viewAction action="#{usuarioMB.iniciarDadosPaginaPrincipal}"/>
+    </f:metadata>
+    <h:outputStylesheet library="css" name="geral.css"/>
+    <title>Principal</title>
+</h:head>
+<h:body>
+    <h:form id="formPrincipal">
+        <p:commandButton value="Adicionar Usuario" action="#{usuarioMB.redirecionarCadastrar()}"/>
+        <p:commandButton value="Sair" action="#{usuarioMB.redirecionarlogin()}"/>
+        <p:dataTable id="tabela" value="#{usuarioMB.listaComUsuarios}"
+                     paginator="true" var="usuarioTab"
+                     paginatorPosition="bottom" rows="5"
+                     emptyMessage="Nenhum dado encontrado.">
+            <p:column headerText="Nome">
+                <p:outputLabel value="#{usuarioTab.nome}"/>
+            </p:column>
+            <p:column headerText="Email">
+                <p:outputLabel value="#{usuarioTab.email}"/>
+            </p:column>
+            <p:column headerText="Celular">
+                <p:outputLabel value="#{usuarioMB.telefoneMascara(usuarioTab.celular)}"/>
+            </p:column>
+            <p:column headerText="CPF">
+                <p:outputLabel value="#{usuarioMB.cpfMascara(usuarioTab.cpf)}"/>
+            </p:column>
+            <p:column headerText="Ações" style="width: 30%">
+                <p:commandButton value="Alterar" action="#{usuarioMB.redirecionarAtualizar}" immediate="true" style="width: 30%">
+                    <f:setPropertyActionListener value="#{usuarioTab}" target="#{usuarioMB.usuario}"/>
+                </p:commandButton>
+                <p:commandButton value="Excluir" onclick="PF('dlgExcluirUsuario').show();" immediate="true" style="width: 30%"
+                                 update=":formExcluirUsuario">
+                    <f:setPropertyActionListener value="#{usuarioTab}" target="#{usuarioMB.usuario}"/>
+                </p:commandButton>
+                <p:commandButton value="Visualizar" onclick="PF('dlgVisualizarUsuario').show();" immediate="true" style="width: 30%"
+                                 update=":formVisualizarUsuario">
+                    <f:setPropertyActionListener value="#{usuarioTab}" target="#{usuarioMB.usuario}"/>
+                </p:commandButton>
+            </p:column>
+        </p:dataTable>
+    </h:form>
+</h:body>
+
+<p:dialog dynamic="true" widgetVar="dlgExcluirUsuario"
+          header="Deletar Usuario" width="auto" height="auto"
+          closable="true" resizable="false" modal="true">
+    <h:form id="formExcluirUsuario">
+        <p:panel id="pnlExcluirUsuario">
+            <p:panelGrid columns="1">
+                <p:row>
+                    <p:outputLabel value="Deseja excluir o usuario: #{usuarioMB.usuario.nome} ?"/>
+                </p:row>
+                <p:row>
+                    <p:commandButton action="#{usuarioMB.excluirUsuario()}" oncomplete="PF('dlgExcluirUsuario').hide();"
+                                     update=":formPrincipal" value="Sim"/>
+                    <p:commandButton oncomplete="PF('dlgExcluirUsuario').hide();" value="Não"/>
+                </p:row>
+            </p:panelGrid>
+        </p:panel>
+    </h:form>
+</p:dialog>
+
+<p:dialog dynamic="true" widgetVar="dlgVisualizarUsuario"
+          header="Visualizar Usuario" width="auto" height="auto"
+          closable="true" resizable="false" modal="true">
+    <h:form id="formVisualizarUsuario">
+        <p:panel id="pnlVisualizarUsuario">
+            <p:panelGrid columns="4">
+                <p:outputLabel value="Nome:" styleClass="campos-lab"/>
+                <p:outputLabel value="#{usuarioMB.usuario.nome}"/>
+                <p:outputLabel value="Data de Nascimento:"/>
+                <p:outputLabel value="#{usuarioMB.usuario.dataNascimento}">
+                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                </p:outputLabel>
+                <p:outputLabel value="Sexo:" styleClass="campos-lab"/>
+                <p:outputLabel value="#{usuarioMB.retornarGenero(usuarioMB.usuario.genero)}"/>
+                <p:outputLabel value="Email:" styleClass="campos-lab"/>
+                <p:outputLabel value="#{usuarioMB.usuario.email}">
+                </p:outputLabel>
+                <p:outputLabel value="Celular:" styleClass="campos-lab"/>
+                <p:outputLabel value="#{usuarioMB.telefoneMascara(usuarioMB.usuario.celular)}"/>
+                <p:outputLabel value="CPF:" styleClass="campos-lab"/>
+                <p:outputLabel value="#{usuarioMB.cpfMascara(usuarioMB.usuario.cpf)}"/>
+                <p:outputLabel value="RG:" styleClass="campos-lab"/>
+                <p:outputLabel value="#{usuarioMB.usuario.rgNumero}"/>
+                <p:outputLabel value="Data de Emissão RG:" styleClass="campos-lab"/>
+                <p:outputLabel value="#{usuarioMB.usuario.rgDataEmissao}">
+                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                </p:outputLabel>
+                <p:outputLabel value="Estado de Emissão RG:" styleClass="campos-lab"/>
+                <p:outputLabel value="#{usuarioMB.usuario.rgEstado}"/>
+                <p:outputLabel value="CEP:" styleClass="campos-lab"/>
+                <p:outputLabel value="#{usuarioMB.cepMascara(usuarioMB.usuario.endereco.cep)}"/>
+                    <p:outputLabel value="Logradouro:" styleClass="campos-lab"/>
+                    <p:outputLabel value="#{usuarioMB.usuario.endereco.logradouro}"/>
+                    <p:outputLabel value="Bairro:" styleClass="campos-lab"/>
+                    <p:outputLabel value="#{usuarioMB.usuario.endereco.bairro}"/>
+                <p:outputLabel value="Cidade:" styleClass="campos-lab"/>
+                <p:outputLabel value="#{usuarioMB.usuario.endereco.cidade}"/>
+                <p:outputLabel value="Estado:" styleClass="campos-lab"/>
+                <p:outputLabel value="#{usuarioMB.usuario.endereco.estado}"/>
+                <p:outputLabel value="Endereço Numero:" styleClass="campos-lab"/>
+                <p:outputLabel value="#{usuarioMB.usuario.endereco.numero}"/>
+                <p:outputLabel value="Endereço Complemento:" styleClass="campos-lab"/>
+                <p:outputLabel value="#{usuarioMB.usuario.endereco.complemento}"/>
+            </p:panelGrid>
+        </p:panel>
+    </h:form>
+</p:dialog>
+</html>
