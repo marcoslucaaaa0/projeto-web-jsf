@@ -2,11 +2,11 @@ package br.com.projetoweb.enums;
 
 public enum GenerosMusicais {
     ROCK("R"),
-    Forró("F"),
+    FORRO("F"),
     MPB("M"),
-    Reggae("RE"),
-    Sertanejo("S"),
-    Eletrônica("E");
+    REGGAE("RE"),
+    SERTANEJO("S"),
+    ELETRONICA("E");
 
     private String sigla;
 
@@ -16,6 +16,15 @@ public enum GenerosMusicais {
 
     public String getSigla() {
         return sigla;
+    }
+
+    public static String retonarGeneroMusical(String sigla) {
+        for (GenerosMusicais generos : GenerosMusicais.values()) {
+            if (generos.getSigla().equals(sigla))
+                return generos.name();
+        }
+
+        return "não existe sigla";
     }
 }
 

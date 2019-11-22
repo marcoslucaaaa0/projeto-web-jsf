@@ -59,7 +59,6 @@ public class UsuarioController implements Serializable {
         PagesUtilLogin.redirecionarLogin("login");
     }
 
-
     public void definirCadastrarAtualizar() {
         if (isUserUpdate()) {
             usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_update");

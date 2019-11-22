@@ -1,3 +1,7 @@
 .campos-lab{
     font-weight:bold !important;
 }
+.media {
+     display: flex;
+    justify-content: center;
+}

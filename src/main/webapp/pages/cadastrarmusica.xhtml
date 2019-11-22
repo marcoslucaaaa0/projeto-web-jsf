@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <meta charset="UTF-8"/>
+
+    <f:metadata>
+        <f:viewAction action="#{sessaoMB.controlarSessao}"/>
+        <f:viewAction action="#{musicaMB.definirCadastrarMusicaAtualizar()}"/>
+    </f:metadata>
+    <h:outputStylesheet library="css" name="geral.css"/>
+    <title>#{musicaMB.condicaoTelaCadastarMusicaAtualizar}</title>
+</h:head>
+<h:body>
+    <div style="align-content: center">
+        <h:form id="formDadosM">
+            <p:growl id="msg" showDetail="true"/>
+            <p:panelGrid columns="1">
+                <p:row>
+                    <p:outputLabel value="#{musicaMB.condicaoTelaCadastarMusicaAtualizar} Musica" styleClass="campos-lab"/>
+                </p:row>
+                <p:row>
+                    <p:outputLabel value="Nome do Grupo:" styleClass="campos-lab">
+                        <span style="color: red;">* </span>
+                    </p:outputLabel>
+                    <p:inputText value="#{musicaMB.musica.nome_grupo}" maxlength="120"
+                                 required="true" requiredMessage="Nome é obrigatorio"/>
+                </p:row>
+                <p:row>
+                    <p:outputLabel value="Titulo Musical:" styleClass="campos-lab">
+                        <span style="color: red;">* </span>
+                    </p:outputLabel>
+                    <p:inputText value="#{musicaMB.musica.title}" maxlength="120"
+                                 required="true" requiredMessage="Titulo é obrigatorio"/>
+                </p:row>
+                <p:row>
+
+                    <p:outputLabel value="Genero:" styleClass="campos-lab">
+                    </p:outputLabel>
+                    <p:selectOneMenu
+                            filterMatchMode="startsWith" filter="true"
+                            value="#{musicaMB.musica.genero}">
+                        <f:selectItem itemLabel="Selecione" itemValue=""/>
+                        <f:selectItems var="GeneroMusical"
+                                       value="#{musicaMB.listaComGeneros}"
+                                       itemLabel="#{GeneroMusical.name()}"
+                                       itemValue="#{GeneroMusical.sigla}"/>
+                    </p:selectOneMenu>
+                </p:row>
+                <p:row>
+                    <p:outputLabel value="Url" styleClass="campos-lab">
+                        <span style="color: red;">* </span>
+                    </p:outputLabel>
+                    <p:inputText value="#{musicaMB.musica.url_file}" maxlength="120"
+                                 required="true" requiredMessage="URL é obrigatorio"/>
+                </p:row>
+            </p:panelGrid>
+            <p:commandButton value="#{musicaMB.condicaoTelaCadastarMusicaAtualizar}" update=":formDadosM:msg"
+                             action="#{musicaMB.validarCondicaoGravacaoDaMusica()}" styleClass="campos-lab"/>
+            <p:commandButton action="#{sessaoMB.redirecionarPrincipalParaPlayList()}"
+                             value="Retornar para tela playlist" immediate="true"/>
+        </h:form>
+    </div>
+</h:body>
+</html>

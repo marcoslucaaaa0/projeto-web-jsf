@@ -1,8 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <meta charset="UTF-8"/>
+    <f:metadata>
+        <f:viewAction action="#{sessaoMB.controlarSessao}"/>
+        <f:viewAction action="#{musicaMB.iniciarDadosPaginaPlaylist}"/>
+    </f:metadata>
+    <h:outputStylesheet library="css" name="geral.css"/>
+    <title>Principal</title>
+</h:head>
+
 <h:head>
     <style type="text/css">
         .ui-stack {
@@ -10,54 +20,98 @@
         }
     </style>
 
+    <link rel="stylesheet" href="../resources/css/geral.css"/>
+
 </h:head>
 <h:body>
+    <div class="media">
+        <h:graphicImage library="images" name="dreams game logo 2.jpeg" style="height: 130px"/>
+        <div class="media-body">
+        </div>
+    </div>
     <h:form>
-        <p:growl id="messages"/>
 
         <p:menubar>
-            <p:submenu label="File" icon="pi pi-file">
-                <p:submenu label="New" icon="pi pi-briefcase">
-                    <p:menuitem value="Project" url="#" />
-                    <p:menuitem value="Other" url="#" />
-                </p:submenu>
-                <p:menuitem value="Open" url="#" />
+            <p:submenu label="Menu" icon="pi pi-file">
+                <p:menuitem value="Alterar dados cadastrais" action="#{sessaoMB.redirecionarPrincipal()}"/>
+                <p:menuitem value="Adicionar Musicas"  action="#{musicaMB.redirecionarCadastrarMusica()}"/>
                 <p:separator />
-                <p:menuitem value="Quit" url="#" />
             </p:submenu>
-
-            <p:submenu label="Edit" icon="pi pi-pencil">
-                <p:menuitem value="Undo" url="#" icon="pi pi-angle-double-left" />
-                <p:menuitem value="Redo" url="#" icon="pi pi-angle-double-right" />
-            </p:submenu>
-
-            <p:submenu label="Help" icon="pi pi-question">
-                <p:menuitem value="Contents" url="#" />
-                <p:submenu label="Search" icon="pi pi-search">
-                    <p:submenu label="Text">
-                        <p:menuitem value="Workspace" url="#" />
-                    </p:submenu>
-                    <p:menuitem value="File" url="#" />
-                </p:submenu>
-            </p:submenu>
-
-            <p:submenu label="Actions" icon="pi pi-cog">
-                <p:submenu label="Ajax" icon="pi pi-refresh">
-                    <p:menuitem value="Save" action="#{menuView.save}" icon="pi pi-save" update="messages"/>
-                    <p:menuitem value="Update" action="#{menuView.update}" icon="pi pi-refresh" update="messages"/>
-                </p:submenu>
-                <p:submenu label="Non-Ajax" icon="pi pi-clone">
-                    <p:menuitem value="Delete" action="#{menuView.delete}" icon="pi pi-times" update="messages" ajax="false"/>
-                </p:submenu>
-            </p:submenu>
-
-            <p:menuitem value="Quit" action="#{sessaoMB.redirecionarUtilLogin()}" icon="pi pi-times" />
-
             <f:facet name="options">
                 <p:inputText style="margin:1px 10px 1px 1px;" placeholder="Search"/>
                 <p:commandButton value="Logout" action="#{sessaoMB.redirecionarUtilLogin()}" icon="pi pi-home" />
             </f:facet>
         </p:menubar>
     </h:form>
+    <h:form id="formPrincipalPlaylist">
+        <p:growl id="messages"/>
+        <p:dataTable id="tabela" style="margin-top: 100px;" value="#{musicaMB.listaComMusicas}"
+                     paginator="true" var="musicaTab"
+                     paginatorPosition="bottom" rows="5"
+                     emptyMessage="Nenhum dado encontrado.">
+            <p:column headerText="Nome do Grupo">
+                <p:outputLabel value="#{musicaTab.nome_grupo}"/>
+            </p:column>
+            <p:column headerText="Titulo">
+                <p:outputLabel value="#{musicaTab.title}"/>
+            </p:column>
+            <p:column headerText="Genero">
+                <p:outputLabel value="#{musicaTab.genero}"/>
+            </p:column>
+            <p:column headerText="Url">
+                <p:outputLabel value="#{(musicaTab.url_file)}"/>
+            </p:column>
+            <p:column headerText="Ações" style="width: 30%">
+                <p:commandButton value="Alterar" action="#{musicaMB.redirecionarMusicaAtualizar}" immediate="true" style="width: 30%">
+                    <f:setPropertyActionListener value="#{musicaTab}" target="#{musicaMB.musica}"/>
+                </p:commandButton>
+                <p:commandButton value="Excluir" onclick="PF('dlgExcluirMusica').show();" immediate="true" style="width: 30%"
+                                 update=":formExcluirMusica">
+                    <f:setPropertyActionListener value="#{musicaTab}" target="#{musicaMB.musica}"/>
+                </p:commandButton>
+                <p:commandButton value="Visualizar" onclick="PF('dlgVisualizarMusica').show();" immediate="true" style="width: 30%"
+                                 update=":formVisualizarMusica">
+                    <f:setPropertyActionListener value="#{musicaTab}" target="#{musicaMB.musica}"/>
+                </p:commandButton>
+            </p:column>
+        </p:dataTable>
+    </h:form>
 </h:body>
+<p:dialog dynamic="true" widgetVar="dlgExcluirMusica"
+          header="Deletar Musica" width="auto" height="auto"
+          closable="true" resizable="false" modal="true">
+    <h:form id="formExcluirMusica">
+        <p:panel id="pnlExcluirMusica">
+            <p:panelGrid columns="1">
+                <p:row>
+                    <p:outputLabel value="Deseja excluir a Musica: #{musicaMB.musica.title} ?"/>
+                </p:row>
+                <p:row>
+                    <p:commandButton action="#{musicaMB.excluirMusica()}" oncomplete="PF('dlgExcluirMusica').hide();"
+                                     update=":formPrincipalPlaylist" value="Sim"/>
+                    <p:commandButton oncomplete="PF('dlgExcluirMusica').hide();" value="Não"/>
+                </p:row>
+            </p:panelGrid>
+        </p:panel>
+    </h:form>
+</p:dialog>
+
+<p:dialog dynamic="true" widgetVar="dlgVisualizarMusica"
+          header="Visualizar Musica" width="auto" height="auto"
+          closable="true" resizable="false" modal="true">
+    <h:form id="formVisualizarMusica">
+        <p:panel id="pnlVisualizarMusica">
+            <p:panelGrid columns="4">
+                <p:outputLabel value="Nome do Grupo:" styleClass="campos-lab"/>
+                <p:outputLabel value="#{musicaMB.musica.nome_grupo}"/>
+                <p:outputLabel value="Genero:" styleClass="campos-lab"/>
+                <p:outputLabel value="#{musicaMB.retornarGeneroMusical(musicaMB.musica.genero)}"/>
+                <p:outputLabel value="Titulo:" styleClass="campos-lab"/>
+                <p:outputLabel value="#{(musicaMB.musica.title)}"/>
+                <p:outputLabel value="URL:" styleClass="campos-lab"/>
+                <p:outputLabel value="#{(musicaMB.musica.url_file)}"/>
+            </p:panelGrid>
+        </p:panel>
+    </h:form>
+</p:dialog>
 </html>

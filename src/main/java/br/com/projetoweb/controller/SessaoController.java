@@ -29,7 +29,7 @@ public class SessaoController implements Serializable {
             MensagemUtil.erro("Senha e/ou Email não preenchidos!");
         }else if (sessionDAO.verificaSenha(usuarioAcesso)) {
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user_session", usuarioAcesso);
-            redirecionarPrincipal();
+            redirecionarPrincipalParaPlayList();
         } else {
             MensagemUtil.erro("Senha e Email Incorretos!");
         }
@@ -48,9 +48,11 @@ public class SessaoController implements Serializable {
         PagesUtilLogin.redirecionarLogin("login");
     }
 
-
+    public void redirecionarPrincipalParaPlayList() throws IOException {
+        PagesUtilLogin.redirecionarLogin("playlist");
+    }
     public void redirecionarPrincipal() throws IOException {
-        PagesUtil.redirectPage("playlist");
+        PagesUtil.redirectPage("principal");
     }
 
     public Usuario getUsuarioAcesso() {
