@@ -14,8 +14,7 @@
 </h:head>
 <h:body>
     <h:form id="formPrincipal">
-        <p:commandButton value="Adicionar Usuario" action="#{usuarioMB.redirecionarCadastrar()}"/>
-        <p:commandButton value="Inicio" action="#{sessaoMB.redirecionarPrincipalParaPlayList()}"/>
+        <p:commandButton value="Playlist" action="#{sessaoMB.redirecionarPrincipalParaPlayList()}"/>
         <p:dataTable id="tabela" value="#{usuarioMB.listaComUsuarios}"
                      paginator="true" var="usuarioTab"
                      paginatorPosition="bottom" rows="5"

@@ -38,7 +38,7 @@
                 <p:separator />
             </p:submenu>
             <f:facet name="options">
-                <p:inputText style="margin:1px 10px 1px 1px;" placeholder="Search"/>
+                <p:inputText style="margin:1px 10px 1px 1px;" placeholder="Search" />
                 <p:commandButton value="Logout" action="#{sessaoMB.redirecionarUtilLogin()}" icon="pi pi-home" />
             </f:facet>
         </p:menubar>
@@ -59,7 +59,7 @@
                 <p:outputLabel value="#{musicaTab.genero}"/>
             </p:column>
             <p:column headerText="Url">
-                <p:outputLabel value="#{(musicaTab.url_file)}"/>
+                <p:outputLabel  value="#{(musicaTab.url_file)}"/>
             </p:column>
             <p:column headerText="Ações" style="width: 30%">
                 <p:commandButton value="Alterar" action="#{musicaMB.redirecionarMusicaAtualizar}" immediate="true" style="width: 30%">
@@ -114,4 +114,5 @@
         </p:panel>
     </h:form>
 </p:dialog>
+
 </html>

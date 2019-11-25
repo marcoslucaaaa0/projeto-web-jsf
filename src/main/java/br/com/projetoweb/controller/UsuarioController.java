@@ -103,7 +103,7 @@ public class UsuarioController implements Serializable {
 
     public String retornarGenero(String sigla) {
         if (VerificadorUtil.naoEstaNuloOuVazio(sigla)) {
-            return (sigla.equals(ModeloGenero.MASCULINO.getSigla())) ? ModeloGenero.MASCULINO.name() : ModeloGenero.FEMININO.name();
+            return (sigla.equals(ModeloGenero.MASCULINO.getSigla())) ? ModeloGenero.MASCULINO.name() : ModeloGenero.FEMININO.name() ;
         } else {
             return null;
         }

@@ -38,28 +38,45 @@ CREATE TABLE public.estados (
 
 Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (12, 'Acre', 'AC', 1);
 Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (27, 'Alagoas', 'AL', 2);
-Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (16, 'Amapá', 'AP', 1);
+Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (16, 'Amapï¿½', 'AP', 1);
 Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (13, 'Amazonas', 'AM', 1);
 Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (29, 'Bahia', 'BA', 2);
-Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (23, 'Ceará', 'CE', 2);
+Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (23, 'Cearï¿½', 'CE', 2);
 Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (53, 'Distrito Federal', 'DF', 5);
-Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (32, 'Espírito Santo', 'ES', 3);
-Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (52, 'Goiás', 'GO', 5);
-Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (21, 'Maranhão', 'MA', 2);
+Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (32, 'Espï¿½rito Santo', 'ES', 3);
+Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (52, 'Goiï¿½s', 'GO', 5);
+Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (21, 'Maranhï¿½o', 'MA', 2);
 Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (51, 'Mato Grosso', 'MT', 5);
 Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (50, 'Mato Grosso do Sul', 'MS', 5);
 Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (31, 'Minas Gerais', 'MG', 3);
-Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (15, 'Pará', 'PA', 1);
-Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (25, 'Paraíba', 'PB', 2);
-Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (41, 'Paraná', 'PR', 4);
+Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (15, 'Parï¿½', 'PA', 1);
+Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (25, 'Paraï¿½ba', 'PB', 2);
+Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (41, 'Paranï¿½', 'PR', 4);
 Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (26, 'Pernambuco', 'PE', 2);
-Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (22, 'Piauí', 'PI', 2);
+Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (22, 'Piauï¿½', 'PI', 2);
 Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (33, 'Rio de Janeiro', 'RJ', 3);
 Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (24, 'Rio Grande do Norte', 'RN', 2);
 Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (43, 'Rio Grande do Sul', 'RS', 4);
-Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (11, 'Rondônia', 'RO', 1);
+Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (11, 'Rondï¿½nia', 'RO', 1);
 Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (14, 'Roraima', 'RR', 1);
 Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (42, 'Santa Catarina', 'SC', 4);
-Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (35, 'São Paulo', 'SP', 3);
+Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (35, 'Sï¿½o Paulo', 'SP', 3);
 Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (28, 'Sergipe', 'SE', 2);
 Insert into public.estados (CodigoUf, Nome, Uf, Regiao) values (17, 'Tocantins', 'TO', 1);
+
+CREATE TABLE public.playlist
+(
+    id integer NOT NULL DEFAULT nextval('playlist_id_seq'::regclass),
+    title character varying(300) COLLATE pg_catalog."default",
+    url_file character varying(200) COLLATE pg_catalog."default",
+    group_name character varying(200) COLLATE pg_catalog."default",
+    genero character varying(100) COLLATE pg_catalog."default",
+    CONSTRAINT playlist_pkey PRIMARY KEY (id)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.playlist
+    OWNER to postgres;
