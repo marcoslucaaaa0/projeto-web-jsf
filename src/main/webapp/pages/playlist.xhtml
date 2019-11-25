@@ -58,8 +58,8 @@
             <p:column headerText="Genero">
                 <p:outputLabel value="#{musicaTab.genero}"/>
             </p:column>
-            <p:column headerText="Url">
-                <p:outputLabel  value="#{(musicaTab.url_file)}"/>
+            <p:column headerText="Url" >
+                <p:commandLink  value="#{(musicaTab.url_file)}"/>
             </p:column>
             <p:column headerText="Ações" style="width: 30%">
                 <p:commandButton value="Alterar" action="#{musicaMB.redirecionarMusicaAtualizar}" immediate="true" style="width: 30%">
