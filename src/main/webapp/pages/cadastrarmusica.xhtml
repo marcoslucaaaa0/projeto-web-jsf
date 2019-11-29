@@ -7,11 +7,10 @@
     <meta charset="UTF-8"/>
 
     <f:metadata>
-        <f:viewAction action="#{sessaoMB.controlarSessao}"/>
         <f:viewAction action="#{musicaMB.definirCadastrarMusicaAtualizar()}"/>
     </f:metadata>
     <h:outputStylesheet library="css" name="geral.css"/>
-    <title>#{musicaMB.condicaoTelaCadastarMusicaAtualizar}</title>
+    <title>#{musicaMB.iniciarListas}</title>
 </h:head>
 <h:body>
     <div style="align-content: center">
@@ -46,7 +45,7 @@
                         <f:selectItems var="GeneroMusical"
                                        value="#{musicaMB.listaComGeneros}"
                                        itemLabel="#{GeneroMusical.name()}"
-                                       />
+                                       itemValue="#{GeneroMusical.sigla}"/>
                     </p:selectOneMenu>
                 </p:row>
                 <p:row>
@@ -57,8 +56,9 @@
                                  required="true" requiredMessage="URL é obrigatorio"/>
                 </p:row>
             </p:panelGrid>
-            <p:commandButton value="#{musicaMB.condicaoTelaCadastarMusicaAtualizar}" update=":formDadosM:msg"
+            <p:commandButton value="#{musicaMB.condicaoTelaCadastarMusicaAtualizar}" update="formDadosM"
                              action="#{musicaMB.validarCondicaoGravacaoDaMusica()}" styleClass="campos-lab"/>
+
             <p:commandButton action="#{sessaoMB.redirecionarPrincipalParaPlayList()}"
                              value="Retornar para tela playlist" immediate="true"/>
         </h:form>

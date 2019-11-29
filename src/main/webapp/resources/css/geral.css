@@ -5,3 +5,47 @@
      display: flex;
     justify-content: center;
 }
+.play{
+    display: flex;
+    justify-content: center;
+
+}
+.button-play .ui-button-icon-only {
+    margin-left: 0 !important;
+    left: 0 !important;
+
+}
+.button-home .ui-button-icon-only{
+    margin-left: 0 !important;
+    left: 0 !important;
+}
+#foot {
+    bottom: 0;
+    width: 100%;
+    background: #000000 !important;
+    /* position: fixed; */
+    position: absolute;
+    left: 0;
+}
+#foot p {
+    color: white;
+    font: 11px/30px Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding-right: 10px;
+    text-align: right;
+    text-transform: uppercase;
+}
+.Imagensfoot{
+    vertical-align: middle;
+    border: 0
+}
+.footer .social-icon {
+    width: 30px;
+    margin: 5px;
+}
+.fa-github:before {
+    content: "\f09b";
+    color: white;
+    font-size: 28px;
+    margin-left: 60%;
+}

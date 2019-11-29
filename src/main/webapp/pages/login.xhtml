@@ -17,8 +17,8 @@
                 <p:inputText value="#{sessaoMB.usuarioAcesso.email}"/>
                 <p:outputLabel value="SENHA: "/>
                 <p:inputText value="#{sessaoMB.usuarioAcesso.senha}" type="password"/>
-                <p:commandButton value="Logar" action="#{sessaoMB.validarAcesso}" update=":formLogin"/>
-                <p:commandButton value="Cadastrar-se" onclick="PF('dlgCadastrar').show();"/>
+                <p:commandButton value="Logar" icon="fa fa-fw fa-sign-in" action="#{sessaoMB.validarAcesso}" update=":formLogin"/>
+                <p:commandButton value="Cadastrar-se" icon="fa fa-fw fa-align-left" onclick="PF('dlgCadastrar').show();"/>
             </h:panelGrid>
         </h:form>
     </div>

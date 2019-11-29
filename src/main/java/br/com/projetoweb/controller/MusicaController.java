@@ -6,6 +6,8 @@ import br.com.projetoweb.model.Musica;
 import br.com.projetoweb.util.MensagemUtil;
 import br.com.projetoweb.util.PagesUtil;
 import br.com.projetoweb.util.VerificadorUtil;
+import com.sun.faces.context.SessionMap;
+import org.primefaces.context.RequestContext;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -14,10 +16,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
+import javax.servlet.http.HttpSession;
 import static br.com.projetoweb.shared.Constantes.CONDICAO_ATUALIZAR;
 import static br.com.projetoweb.shared.Constantes.CONDICAO_CADASTRAR;
-
+import javax.*;
 @ViewScoped
 @ManagedBean(name = "musicaMB")
 public class MusicaController {
@@ -32,6 +34,7 @@ public class MusicaController {
         musicaDao = new MusicaDAO();
         listaComMusicas = new ArrayList<>();
         listaComGeneros = new ArrayList<>();
+        iniciarListas();
     }
 
     private void AdicionarMusica() throws IOException {
@@ -39,29 +42,35 @@ public class MusicaController {
             if (VerificadorUtil.estaNulo(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_session"))) {
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user_session", musica);
             }
-            //PagesUtil.redirectPage("principal");
             MensagemUtil.sucesso("Musica adicionada com sucesso");
             musica = new Musica();
+            condicaoTelaCadastarMusicaAtualizar = null;
+            PagesUtil.redirectPage("playlist");
         } else {
             MensagemUtil.erro("Erro ao adicionar Musica");
         }
     }
 
-    public void redirecionarMusicaAtualizar() throws IOException {
-        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("music_update", musica);
-        PagesUtil.redirectPage("cadastrarmusica");
+    public void redirecionarMusicaAtualizar(){
+        condicaoTelaCadastarMusicaAtualizar = CONDICAO_ATUALIZAR;
+        PagesUtil.abrirDialogAtualizado("AlterarCadastrarMusica");
+    }
+
+    public void fecharDialogAlterarCadastrarMusica(){
+        musica = new Musica();
+        PagesUtil.fecharDialog("dlgAlterarCadastrarMusica");
     }
 
     private void alterarListaDeMusica() throws IOException {
         if (musicaDao.alterarMusica(musica)) {
-            //PagesUtil.redirectPage("principal");
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("music_update");
+            condicaoTelaCadastarMusicaAtualizar = null;
+            PagesUtil.redirectPage("playlist");
             MensagemUtil.sucesso("alterada com sucesso");
-            musica = new Musica();
         } else {
             MensagemUtil.erro("Erro ao alterar ");
         }
     }
-
 
     public void excluirMusica() throws IOException {
         if (musicaDao.deletarMusica(musica.getId())) {
@@ -81,11 +90,13 @@ public class MusicaController {
         }
     }
 
-    public void redirecionarCadastrarMusica() throws IOException {
-        PagesUtil.redirectPage("cadastrarmusica");
+    public void redirecionarCadastrarMusica() {
+        musica = new Musica();
+        condicaoTelaCadastarMusicaAtualizar = CONDICAO_CADASTRAR;
+        PagesUtil.abrirDialogAtualizado("AlterarCadastrarMusica");
     }
 
-    private void iniciarListas() {
+    public void iniciarListas() {
         listaComGeneros = Arrays.asList(GenerosMusicais.values());
     }
 
@@ -124,7 +135,6 @@ public class MusicaController {
         listaComMusicas = musicaDao.retornarPlaylist();
 
     }
-
 
     public List<GenerosMusicais> getListaComGeneros() {
         return listaComGeneros;

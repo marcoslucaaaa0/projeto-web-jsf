@@ -1,10 +1,10 @@
 CREATE TABLE public.usuarios (
 	id serial NOT null,
-	nome varchar(120) NULL,
+	nome varchar(120) NOT null,
 	data_nascimento date NULL,
 	cpf char(11) NULL,
 	email varchar(100) NOT null,
-	senha varchar(60) NULL,
+	senha varchar(60)NOT null,
 	celular char(9) NULL,
 	genero char null,
 	rg_numero char(9) NULL,

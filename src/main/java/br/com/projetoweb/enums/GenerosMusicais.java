@@ -22,6 +22,7 @@ public enum GenerosMusicais {
         for (GenerosMusicais generos : GenerosMusicais.values()) {
             if (generos.getSigla().equals(sigla))
                 return generos.name();
+
         }
 
         return "não existe sigla";

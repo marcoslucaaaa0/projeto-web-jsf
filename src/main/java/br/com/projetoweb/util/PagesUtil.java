@@ -19,4 +19,18 @@ public class PagesUtil {
     private static RequestContext getRequestContext() {
         return RequestContext.getCurrentInstance();
     }
+
+
+    public static void atualizarComponente(String componente){
+        getRequestContext().update(componente);
+    }
+
+    public static void abrirDialog(String dialog) {
+        getRequestContext().execute("PF('" + dialog + "').show();");
+    }
+
+    public static void abrirDialogAtualizado(String nomeDialog){
+        atualizarComponente("form"+nomeDialog);
+        abrirDialog("dlg"+nomeDialog);
+    }
 }
