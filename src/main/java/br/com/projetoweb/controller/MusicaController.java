@@ -37,15 +37,16 @@ public class MusicaController {
         iniciarListas();
     }
 
-    private void AdicionarMusica() throws IOException {
+    private void AdicionarMusica()  {
         if (musicaDao.AdicionarMusica(musica)) {
             if (VerificadorUtil.estaNulo(FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user_session"))) {
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user_session", musica);
             }
+            iniciarDadosPaginaPlaylist();
             MensagemUtil.sucesso("Musica adicionada com sucesso");
+            fecharDialogAlterarCadastrarMusica();
             musica = new Musica();
             condicaoTelaCadastarMusicaAtualizar = null;
-            PagesUtil.redirectPage("playlist");
         } else {
             MensagemUtil.erro("Erro ao adicionar Musica");
         }
@@ -61,12 +62,13 @@ public class MusicaController {
         PagesUtil.fecharDialog("dlgAlterarCadastrarMusica");
     }
 
-    private void alterarListaDeMusica() throws IOException {
+    private void alterarListaDeMusica() {
         if (musicaDao.alterarMusica(musica)) {
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("music_update");
             condicaoTelaCadastarMusicaAtualizar = null;
-            PagesUtil.redirectPage("playlist");
+            iniciarDadosPaginaPlaylist();
             MensagemUtil.sucesso("alterada com sucesso");
+            fecharDialogAlterarCadastrarMusica();
         } else {
             MensagemUtil.erro("Erro ao alterar ");
         }
@@ -124,11 +126,11 @@ public class MusicaController {
 
 
     public void validarCondicaoGravacaoDaMusica() throws IOException {
-        if (retornarCondicaoTelaCadastarAtualizar().equals(CONDICAO_CADASTRAR))
+        if (musica.getId() == null) {
             AdicionarMusica();
-
-        else
+        } else {
             alterarListaDeMusica();
+        }
     }
 
     public void iniciarDadosPaginaPlaylist() {
