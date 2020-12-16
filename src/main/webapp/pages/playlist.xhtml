@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:p="http://primefaces.org/ui">
 <h:head>
     <meta charset="UTF-8"/>
     <f:metadata>
@@ -18,13 +18,69 @@
         .ui-stack {
             z-index: 1000;
         }
+
+        .espaco {
+            margin-bottom: 2%;
+        }
     </style>
 
     <link rel="stylesheet" href="../resources/css/geral.css"/>
 
 </h:head>
 <h:body>
-    <ui:include src="dialog/dlgAlterarCadastrarMusica.xhtml"/>
+    <p:dialog id="modalAlterarCadastrarMusica" dynamic="true" widgetVar="dlgAlterarCadastrarMusica"
+              header="#{musicaMB.condicaoTelaCadastarMusicaAtualizar}Alterar\Cadastrar" width="auto" height="auto"
+              closable="false" resizable="false" modal="true">
+        <h:form id="formAlterarCadastrarMusica">
+            <p:growl id="msgAlterarCadastrarMusica" showDetail="true"/>
+            <h:panelGrid columns="1" id="pnlAlterarCadastrarMusica">
+                <p:row>
+                    <p:outputLabel value="Nome do Grupo:" styleClass="campos-lab">
+                        <span style="color: red;">* </span>
+                    </p:outputLabel>
+                    <p:inputText value="#{musicaMB.musica.nome_grupo}" maxlength="120" styleClass="espaco"
+                                 required="true" requiredMessage="Nome é obrigatorio"/>
+                </p:row>
+                <p:row>
+                    <p:outputLabel value="Titulo Musical:" styleClass="campos-lab">
+                        <span style="color: red;">* </span>
+                    </p:outputLabel>
+                    <p:inputText value="#{musicaMB.musica.title}" maxlength="120"
+                                 required="true" requiredMessage="Titulo é obrigatorio"/>
+                </p:row>
+                <p:row>
+
+                    <p:outputLabel value="Genero:" styleClass="campos-lab">
+                    </p:outputLabel>
+                    <p:selectOneMenu
+                            filterMatchMode="startsWith" filter="true"
+                            value="#{musicaMB.musica.genero}">
+                        <f:selectItem itemLabel="Selecione" itemValue=""/>
+                        <f:selectItems var="GeneroMusical"
+                                       value="#{musicaMB.listaComGeneros}"
+                                       itemLabel="#{GeneroMusical.name()}"
+                                       itemValue="#{GeneroMusical.sigla}"/>
+                    </p:selectOneMenu>
+                </p:row>
+                <p:row>
+                    <p:outputLabel value="Url" styleClass="campos-lab">
+                        <span style="color: red;">* </span>
+                    </p:outputLabel>
+                    <p:inputText value="#{musicaMB.musica.url_file}" maxlength="120"
+                                 required="true" requiredMessage="URL é obrigatorio"/>
+                </p:row>
+                <p:row>
+                    <p:commandButton value="#{musicaMB.condicaoTelaCadastarMusicaAtualizar}"
+                                     update=":formPrincipalPlaylist"
+                                     action="#{musicaMB.validarCondicaoGravacaoDaMusica()}" styleClass="campos-lab"/>
+
+                    <p:commandButton action="#{musicaMB.fecharDialogAlterarCadastrarMusica()}"
+                                     value="Cancelar" immediate="true"/>
+                </p:row>
+            </h:panelGrid>
+        </h:form>
+    </p:dialog>
+
     <div class="media">
         <h:graphicImage library="images" name="dreams game logo 2.jpeg" style="height: 130px"/>
         <div class="media-body">
@@ -40,20 +96,32 @@
             <p:menubar>
                 <p:submenu label="Menu" icon="fa fa-fw fa-bars">
                     <p:menuitem value="Alterar dados cadastrais" action="#{sessaoMB.redirecionarPrincipal()}"/>
-                    <p:menuitem value="Adicionar Musicas"  action="#{musicaMB.redirecionarCadastrarMusica()}"/>
-                    <p:separator />
+                    <p:menuitem value="Adicionar Musicas" action="#{musicaMB.redirecionarCadastrarMusica()}"/>
+                    <p:separator/>
                 </p:submenu>
-                <f:facet name="options">
-                    <p:inputText style="margin:1px 10px 1px 1px;" placeholder="Search" />
-                    <p:commandButton icon="fa fa-fw fa-sign-out" value="Logout"  action="#{sessaoMB.redirecionarUtilLogin()}" />
+                <f:facet
+                        name="options">
+                    <p:outputLabel style="margin-left: 8px !important;"
+                                   value="Bem vindo marcos! "/>
+                    <p:commandButton icon="fa fa-fw fa-sign-out" value="Logout"
+                                     action="#{sessaoMB.redirecionarUtilLogin()}"/>
                 </f:facet>
             </p:menubar>
         </h:form>
         <h:form id="formPrincipalPlaylist">
             <p:growl id="messages"/>
-            <p:dataTable id="tabela" style="margin-top: 100px;" value="#{musicaMB.listaComMusicas}"
+
+            <p:inputText value="#{musicaMB.filtroTitulo}" placeholder="Buscar por título" style="margin-top: 100px;"/>
+
+            <p:commandButton icon="fa fa-fw fa-search" value="Buscar" action="#{musicaMB.filtroDeMusicasPorTitulo()}"
+                             update="formPrincipalPlaylist"/>
+            <p:commandButton icon="fa fa-fw fa-recycle" value="Limpar busca"
+                             action="#{musicaMB.iniciarDadosPaginaPlaylist()}" update="formPrincipalPlaylist"/>
+            <br/><br/>
+
+            <p:dataTable id="tabela" value="#{musicaMB.listaComMusicas}"
                          paginator="true" var="musicaTab"
-                         paginatorPosition="bottom" rows="5"
+                         paginatorPosition="bottom" rows="5" widgetVar="tabela-playlist"
                          emptyMessage="Nenhum dado encontrado.">
                 <p:column headerText="Nome do Grupo">
                     <p:outputLabel value="#{musicaTab.nome_grupo}"/>
@@ -64,18 +132,23 @@
                 <p:column headerText="Genero">
                     <p:outputLabel value="#{musicaMB.retornarGeneroMusical(musicaTab.genero)}"/>
                 </p:column>
-                <p:column headerText="Url" styleClass="play" >
-                    <p:button icon="fa  fa-play-circle"  styleClass="button-play" href="#{musicaTab.url_file}" target="_blank"/>
+                <p:column headerText="Url" styleClass="play">
+                    <p:button icon="fa  fa-play-circle" styleClass="button-play" href="#{musicaTab.url_file}"
+                              target="_blank"/>
                 </p:column>
                 <p:column headerText="Ações" style="width: 30%">
-                    <p:commandButton value="Alterar" icon="fa fa-fw fa-edit"  action="#{musicaMB.redirecionarMusicaAtualizar}" immediate="true" style="width: 30%">
+                    <p:commandButton value="Alterar" icon="fa fa-fw fa-edit"
+                                     action="#{musicaMB.redirecionarMusicaAtualizar}" immediate="true"
+                                     style="width: 30%">
                         <f:setPropertyActionListener value="#{musicaTab}" target="#{musicaMB.musica}"/>
                     </p:commandButton>
-                    <p:commandButton value="Excluir" icon="fa fa-fw fa-trash" onclick="PF('dlgExcluirMusica').show();" immediate="true" style="width: 30%"
+                    <p:commandButton value="Excluir" icon="fa fa-fw fa-trash" onclick="PF('dlgExcluirMusica').show();"
+                                     immediate="true" style="width: 30%"
                                      update=":formExcluirMusica">
                         <f:setPropertyActionListener value="#{musicaTab}" target="#{musicaMB.musica}"/>
                     </p:commandButton>
-                    <p:commandButton value="Visualizar" icon="fa fa-fw fa-eye" onclick="PF('dlgVisualizarMusica').show();" immediate="true" style="width: 30%"
+                    <p:commandButton value="Visualizar" icon="fa fa-fw fa-eye"
+                                     onclick="PF('dlgVisualizarMusica').show();" immediate="true" style="width: 30%"
                                      update=":formVisualizarMusica">
                         <f:setPropertyActionListener value="#{musicaTab}" target="#{musicaMB.musica}"/>
                     </p:commandButton>

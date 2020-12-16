@@ -22,6 +22,7 @@ public class SessaoController implements Serializable {
     public SessaoController() {
         usuarioAcesso = new Usuario();
         sessionDAO = new SessaoDAO();
+
     }
 
     public void validarAcesso() throws IOException {

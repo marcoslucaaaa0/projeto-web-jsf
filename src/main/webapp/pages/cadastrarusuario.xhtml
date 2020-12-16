@@ -15,7 +15,7 @@
     <title>#{usuarioMB.condicaoTelaCadastarAtualizar}</title>
 </h:head>
 <h:body>
-    <div style="align-content: center">
+    <div style="align-content: center ; margin-left: 27%">
         <h:form id="formDados">
             <p:growl id="msg" showDetail="true"/>
             <p:panelGrid columns="1">
@@ -163,14 +163,25 @@
                                  value="#{usuarioMB.usuario.endereco.complemento}"/>
                 </p:row>
             </p:panelGrid>
-            <p:commandButton value="#{usuarioMB.condicaoTelaCadastarAtualizar}" update=":formDados:msg"
+            <p:commandButton icon="fa fa-fw fa-edit" value="#{usuarioMB.condicaoTelaCadastarAtualizar}" update=":formDados:msg"
                              action="#{usuarioMB.validarCondicaoGravacao()}" styleClass="campos-lab"/>
-            <p:commandButton value="Alterar Senha" rendered="#{usuarioMB.userUpdate}" styleClass="campos-lab"
+            <p:commandButton icon="fa fa-fw fa-key" value="Alterar Senha" rendered="#{usuarioMB.userUpdate}" styleClass="campos-lab"
                              onclick="PF('dlgAlterarSenha').show();"/>
             <p:commandButton action="#{sessaoMB.redirecionarPrincipal()}"
-                             value="Retornar para tela principal" immediate="true"/>
+                             icon="fa fa-fw fa-home"  value="Retornar para tela principal" immediate="true"/>
         </h:form>
     </div>
+    <div id="foot">
+        <div class="connect">
+            <a href="https://github.com/marcoslucaaaa0" target="_blank">
+                <i class="fa fa-github"></i>
+            </a>
+        </div>
+
+        <p class="foot-text">© Dreams ( Todos os
+            direitos reservados).</p>
+    </div>
+
 </h:body>
 <p:dialog dynamic="true" widgetVar="dlgAlterarSenha"
           header="Cadastrar Usuario" width="auto" height="auto"

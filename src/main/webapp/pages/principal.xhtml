@@ -14,7 +14,8 @@
 </h:head>
 <h:body>
     <h:form id="formPrincipal">
-        <p:commandButton icon="fa  fa-home"   styleClass="button-home" action="#{sessaoMB.redirecionarPrincipalParaPlayList()}"/>
+        <p:commandButton icon="fa  fa-home" styleClass="button-home"
+                         action="#{sessaoMB.redirecionarPrincipalParaPlayList()}"/>
         <p:dataTable id="tabela" value="#{usuarioMB.listaComUsuarios}"
                      paginator="true" var="usuarioTab"
                      paginatorPosition="bottom" rows="5"
@@ -32,20 +33,33 @@
                 <p:outputLabel value="#{usuarioMB.cpfMascara(usuarioTab.cpf)}"/>
             </p:column>
             <p:column headerText="Ações" style="width: 30%">
-                <p:commandButton  value="Alterar" icon="fa fa-fw fa-edit" action="#{usuarioMB.redirecionarAtualizar}" immediate="true" style="width: 30%">
+                <p:commandButton value="Alterar" icon="fa fa-fw fa-edit" action="#{usuarioMB.redirecionarAtualizar}"
+                                 immediate="true" style="width: 30%">
                     <f:setPropertyActionListener value="#{usuarioTab}" target="#{usuarioMB.usuario}"/>
                 </p:commandButton>
-                <p:commandButton value="Excluir" icon="fa fa-fw fa-trash" onclick="PF('dlgExcluirUsuario').show();" immediate="true" style="width: 30%"
+                <p:commandButton value="Excluir" icon="fa fa-fw fa-trash" onclick="PF('dlgExcluirUsuario').show();"
+                                 immediate="true" style="width: 30%"
                                  update=":formExcluirUsuario">
                     <f:setPropertyActionListener value="#{usuarioTab}" target="#{usuarioMB.usuario}"/>
                 </p:commandButton>
-                <p:commandButton value="Visualizar" icon="fa fa-fw fa-eye" onclick="PF('dlgVisualizarUsuario').show();" immediate="true" style="width: 30%"
+                <p:commandButton value="Visualizar" icon="fa fa-fw fa-eye" onclick="PF('dlgVisualizarUsuario').show();"
+                                 immediate="true" style="width: 30%"
                                  update=":formVisualizarUsuario">
                     <f:setPropertyActionListener value="#{usuarioTab}" target="#{usuarioMB.usuario}"/>
                 </p:commandButton>
             </p:column>
         </p:dataTable>
     </h:form>
+    <div id="foot">
+        <div class="connect">
+            <a href="https://github.com/marcoslucaaaa0" target="_blank">
+                <i class="fa fa-github"></i>
+            </a>
+        </div>
+
+        <p class="foot-text">© Dreams ( Todos os
+            direitos reservados).</p>
+    </div>
 
 </h:body>
 
@@ -99,10 +113,10 @@
                 <p:outputLabel value="#{usuarioMB.usuario.rgEstado}"/>
                 <p:outputLabel value="CEP:" styleClass="campos-lab"/>
                 <p:outputLabel value="#{usuarioMB.cepMascara(usuarioMB.usuario.endereco.cep)}"/>
-                    <p:outputLabel value="Logradouro:" styleClass="campos-lab"/>
-                    <p:outputLabel value="#{usuarioMB.usuario.endereco.logradouro}"/>
-                    <p:outputLabel value="Bairro:" styleClass="campos-lab"/>
-                    <p:outputLabel value="#{usuarioMB.usuario.endereco.bairro}"/>
+                <p:outputLabel value="Logradouro:" styleClass="campos-lab"/>
+                <p:outputLabel value="#{usuarioMB.usuario.endereco.logradouro}"/>
+                <p:outputLabel value="Bairro:" styleClass="campos-lab"/>
+                <p:outputLabel value="#{usuarioMB.usuario.endereco.bairro}"/>
                 <p:outputLabel value="Cidade:" styleClass="campos-lab"/>
                 <p:outputLabel value="#{usuarioMB.usuario.endereco.cidade}"/>
                 <p:outputLabel value="Estado:" styleClass="campos-lab"/>

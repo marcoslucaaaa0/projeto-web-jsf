@@ -44,6 +44,35 @@ public class MusicaDAO {
         return playList;
     }
 
+    public ArrayList<Musica> retornarPlaylistFiltradaPorTitulo(String titulo) {
+        ArrayList<Musica> playList = new ArrayList<>();
+        conexao = ConnectionFactory.getConnection();
+        try {
+            PreparedStatement ps = conexao.prepareStatement(QUERY_CONSULTAR_RETORNAR_PLAYLIST + CONDICAO_FILTRO_MUSICA);
+            ps.setString(1, "%"+titulo+"%");
+            ps.setString(2, "%"+titulo+"%");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Musica music = new Musica();
+                music.setId(rs.getInt("id"));
+                music.setTitle(rs.getString("title"));
+                music.setUrl_file(rs.getString("url_file"));
+                music.setNome_grupo(rs.getString("group_name"));
+                music.setGenero(rs.getString("genero"));
+                playList.add(music);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                conexao.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return playList;
+    }
+
     public boolean AdicionarMusica(Musica musica) {
         boolean salvou = false;
         conexao = ConnectionFactory.getConnection();

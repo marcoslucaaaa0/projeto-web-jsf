@@ -52,12 +52,12 @@ public class UsuarioController implements Serializable {
         PagesUtil.redirectPage("cadastrarusuario");
     }
 
-    public void redirecionarCadastrar() throws IOException {
-        PagesUtil.redirectPage("cadastrarusuario");
-    }
-    public void redirecionarlogin() throws IOException {
-        PagesUtilLogin.redirecionarLogin("login");
-    }
+//    public void redirecionarCadastrar() throws IOException {
+//        PagesUtil.redirectPage("cadastrarusuario");
+//    }
+//    public void redirecionarlogin() throws IOException {
+//        PagesUtilLogin.redirecionarLogin("login");
+//    }
 
     public void definirCadastrarAtualizar() {
         if (isUserUpdate()) {

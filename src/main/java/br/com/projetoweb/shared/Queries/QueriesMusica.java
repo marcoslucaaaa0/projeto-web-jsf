@@ -3,7 +3,10 @@ package br.com.projetoweb.shared.Queries;
 public class QueriesMusica {
     public static final String QUERY_CONSULTAR_RETORNAR_PLAYLIST =
             "SELECT id, title, url_file, group_name, genero " +
-                    "FROM public.playlist";
+                    "FROM public.playlist ";
+
+    public static final String CONDICAO_FILTRO_MUSICA =
+            " WHERE title ilike ? OR group_name ilike ?";
 
     public static final String QUERY_INSERIR_ADICIONAR_MUSICA =
             "INSERT INTO public.playlist(title, url_file, group_name, genero) " +

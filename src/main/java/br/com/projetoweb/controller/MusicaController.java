@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import javax.servlet.http.HttpSession;
 import static br.com.projetoweb.shared.Constantes.CONDICAO_ATUALIZAR;
 import static br.com.projetoweb.shared.Constantes.CONDICAO_CADASTRAR;
@@ -28,6 +29,7 @@ public class MusicaController {
     private Musica musica;
     private ArrayList<Musica> listaComMusicas;
     private String condicaoTelaCadastarMusicaAtualizar;
+    private String filtroTitulo;
 
     public MusicaController() {
         musica = new Musica();
@@ -67,7 +69,7 @@ public class MusicaController {
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("music_update");
             condicaoTelaCadastarMusicaAtualizar = null;
             iniciarDadosPaginaPlaylist();
-            MensagemUtil.sucesso("alterada com sucesso");
+            MensagemUtil.sucesso("Alterada com sucesso");
             fecharDialogAlterarCadastrarMusica();
         } else {
             MensagemUtil.erro("Erro ao alterar ");
@@ -76,7 +78,7 @@ public class MusicaController {
 
     public void excluirMusica() throws IOException {
         if (musicaDao.deletarMusica(musica.getId())) {
-            MensagemUtil.sucesso("excluido com sucesso");
+            MensagemUtil.sucesso("Excluido com sucesso");
             musica = new Musica();
             iniciarDadosPaginaPlaylist();
         } else {
@@ -135,7 +137,10 @@ public class MusicaController {
 
     public void iniciarDadosPaginaPlaylist() {
         listaComMusicas = musicaDao.retornarPlaylist();
+    }
 
+    public void filtroDeMusicasPorTitulo(){
+        listaComMusicas = musicaDao.retornarPlaylistFiltradaPorTitulo(filtroTitulo);
     }
 
     public List<GenerosMusicais> getListaComGeneros() {
@@ -144,14 +149,6 @@ public class MusicaController {
 
     public void setListaComGeneros(List<GenerosMusicais> listaComGeneros) {
         this.listaComGeneros = listaComGeneros;
-    }
-
-    public MusicaDAO getMusicaDao() {
-        return musicaDao;
-    }
-
-    public void setMusicaDao(MusicaDAO musicaDao) {
-        this.musicaDao = musicaDao;
     }
 
     public Musica getMusica() {
@@ -176,6 +173,14 @@ public class MusicaController {
 
     public void setCondicaoTelaCadastarMusicaAtualizar(String condicaoTelaCadastarMusicaAtualizar) {
         this.condicaoTelaCadastarMusicaAtualizar = condicaoTelaCadastarMusicaAtualizar;
+    }
+
+    public String getFiltroTitulo() {
+        return filtroTitulo;
+    }
+
+    public void setFiltroTitulo(String filtroTitulo) {
+        this.filtroTitulo = filtroTitulo;
     }
 }
 

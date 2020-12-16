@@ -6,7 +6,10 @@ public enum GenerosMusicais {
     MPB("M"),
     REGGAE("RE"),
     SERTANEJO("S"),
-    ELETRONICA("E");
+    ELETRONICA("E"),
+    GOSPEL("G"),
+    AXE("A"),
+    FUNK("F");
 
     private String sigla;
 
