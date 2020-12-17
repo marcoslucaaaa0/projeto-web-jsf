@@ -5,17 +5,22 @@
       xmlns:p="http://primefaces.org/ui">
 
 <h:head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, maximum-scale=1.0, minimum-scale = 1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <meta charset="UTF-8"/>
 
     <f:metadata>
         <f:viewAction action="#{sessaoMB.controlarSessao}"/>
         <f:viewAction action="#{usuarioMB.definirCadastrarAtualizar()}"/>
     </f:metadata>
-    <h:outputStylesheet library="css" name="geral.css"/>
+    <link rel="styleSheet" href="../resources/css/bootstrap.css" />
+    <link rel="styleSheet" href="../resources/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../resources/css/geral.css"/>
+<!--    <h:outputStylesheet library="css" name="geral.css"/>-->
     <title>#{usuarioMB.condicaoTelaCadastarAtualizar}</title>
 </h:head>
 <h:body>
-    <div style="align-content: center ; margin-left: 27%">
+    <div style="align-content: center ; margin-left: 21%">
         <h:form id="formDados">
             <p:growl id="msg" showDetail="true"/>
             <p:panelGrid columns="1">
@@ -171,16 +176,57 @@
                              icon="fa fa-fw fa-home"  value="Retornar para tela principal" immediate="true"/>
         </h:form>
     </div>
-    <div id="foot">
-        <div class="connect">
-            <a href="https://github.com/marcoslucaaaa0" target="_blank">
-                <i class="fa fa-github"></i>
-            </a>
+    <footer id="foot">
+        <div class="footer-top" style="margin-top: 5% !important;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 col-xs-12 primeiro-segmento md-mb-30 sm-mb-30">
+                        <img src="../resources/images/dremsSemfundo.png" style="width: 40%; margin-top: -18%;margin-left: -2%;"/>
+                        <p>Somos o DREAMS, um sistema streaming.O intuito inicial do sistema contratado é dar visibilidade ou oportunidade para usuários que desejam tanto desfrutar ou até divulgar seu próprio trabalho musical.
+                        </p>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12 segundo-segmento">
+                        <h2>Links úteis</h2>
+                        <ul>
+                            <li><a href="#">Eventos</a></li>
+                            <li><a href="#">Fale conosco</a></li>
+                            <li><a href="#">Quem somos</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12 terceiro-segmento">
+                        <h2>Redes Sociais</h2>
+                        <p>Siga-nos em nosso perfil de mídia social para se manter atualizado.</p>
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-pinterest"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="#"><i class="fa fa-github"></i></a>
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12 quarto-segmento">
+                        <h2>Nossas Noticias e Novidades</h2>
+                        <p>Inscreva-se usando seu e-mail,para receber nossas novidades e noticias.</p>
+                        <form  action="">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control"  aria-label="Recipient's username" aria-describedby="basic-addon2"/>
+                                <div class="input-group-append">
+                                    <span style="background: red;color: white" class="input-group-text" id="basic-addon2">Increva-se</span>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <p class="foot-text">© Dreams ( Todos os
-            direitos reservados).</p>
-    </div>
+            direitos reservados).</p>		<!-- JS -->
+        <!--        <script src="../resources/JS/jquery.js"></script>-->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+        <script src="../resources/JS/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+
+    </footer>
 
 </h:body>
 <p:dialog dynamic="true" widgetVar="dlgAlterarSenha"

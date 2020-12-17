@@ -1,9 +1,18 @@
+body{
+    background: url("../../resources/images/backPrincipal.jpg");
+    height: 100%!important;
+    background-repeat: no-repeat!important;
+    background-size: cover!important;
+
+}
+
 .campos-lab{
     font-weight:bold !important;
 }
 .media {
      display: flex;
     justify-content: center;
+    margin-left: 42%;
 }
 .play{
     display: flex;
@@ -19,33 +28,120 @@
     margin-left: 0 !important;
     left: 0 !important;
 }
+
+<!--Inicio  Foot -->
+
+
 #foot {
     bottom: 0;
     width: 100%;
-    background: #000000 !important;
-    /* position: fixed; */
-    position: absolute;
+    background:#343a40 !important;
+    position: fixed;
     left: 0;
 }
 #foot p {
-    color: white;
-    font: 11px/30px Arial, Helvetica, sans-serif;
-    margin: 0;
-    padding-right: 10px;
-    text-align: right;
+    color: #999;
+    line-height: 25px
+}
+
+#foot h2,h3{
+    color: #fff;
+
+}
+#foot h2{
+    font-size: 18px;
+
+}
+.footer-top{
+    background: #111;
+    padding: 80px 0;
+}
+.primeiro-segmento h3{
+    font-family: Courgette;
+    color: #fff;
+    letter-spacing: 3px;
+    margin: 10px 0;
+}
+.segundo-segmento h2{
+    color:#fff;
+    font-family: Poppins;
     text-transform: uppercase;
 }
-.Imagensfoot{
-    vertical-align: middle;
-    border: 0
+
+.segundo-segmento h2:before{
+    content: "|";
+    color: #dc3545;;
+    padding-right: 10px;
 }
-.footer .social-icon {
-    width: 30px;
-    margin: 5px;
+.segundo-segmento ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
-.fa-github:before {
-    content: "\f09b";
-    color: white;
-    font-size: 28px;
-    margin-left: 60%;
+
+.segundo-segmento ul li{
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    line-height: 40px;
 }
+.segundo-segmento ul li a{
+    color: #999;
+    text-decoration: none;
+}
+
+.terceiro-segmento h2{
+    color:#fff;
+    font-family: Poppins;
+    text-transform: uppercase;
+}
+
+.terceiro-segmento h2:before{
+    content: "|";
+    color:#dc3545;;
+    padding-right: 10px;
+}
+
+.terceiro-segmento a{
+    background: #494848;
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    border-radius: 50%;
+}
+.terceiro-segmento a i{
+    font-size: 20px;
+    color:#fff;
+    padding: 10px 12px;
+}
+
+.quarto-segmento h2{
+    color:#fff;
+    font-family: Poppins;
+    text-transform: uppercase;
+}
+
+.quarto-segmento h2:before{
+    content: "|";
+    color: #dc3545;;
+    padding-right: 10px;
+}
+.quarto-segmento form input[type=submit]{
+    background: #c65039;
+    border:none;
+    padding: 3px 15px;
+    margin-left: -5px;
+    color: #fff;
+    text-transform: uppercase;
+
+}
+.foot-text{
+    text-align: center;
+    background: #000;
+}
+.btn-danger {
+    color: #fff;
+    background-color: #b92325;
+    border-color: #c31e28;
+}
+
+
+<!--Fim do Foot -->
